@@ -3,14 +3,13 @@
 function fetchAllStdin(){
     $lines = array();
     while ($line = fgets(STDIN)) {
-        $lines[] = $line;
+        $lines[] = str_replace( array("\r\n","\r","\n"), '', trim($line) );
     }
     return $lines;
 }
 
 function mapLine($line, $keyMap = array(), $delimiter = " "){
-    $tmp = explode($delimiter,
-        str_replace( array("\r\n","\r","\n"), '', trim($line) ));
+    $tmp = explode($delimiter, $line);
 
     $_tmp = array();
     foreach($keyMap as $i => $key){
@@ -31,9 +30,8 @@ function mapLines($_lines, $keyMap = array(), $delimiter = " "){
 $linesAll = fetchAllStdin();
 $stock = mapLine($linesAll[0], array(500, 100, 50, 10));
 
-$_v = mapLine($linesAll[1], array('line_num'));
-$_lines = array_slice($linesAll, 2, $_v['line_num']);
-
+$recordNum = $linesAll[1];
+$_lines = array_slice($linesAll, 2, $recordNum);
 $records = mapLines($_lines, array('price', 500, 100, 50, 10));
 
 
