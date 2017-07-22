@@ -6,8 +6,28 @@
  * Time: 0:54
  */
 
+function array_chunk($array, $size){
+    $recordsNum = count($array);
 
-function insertCSVRowsPerChunk($records, $pkColumn = 'oid', $chunkNum = 500){
+    $tmpRecords = array();
+    $_tmpRecords = array();
+    $cntRecords = 0;
+    foreach($array as $i => $record){
+        $cntRecords++;
+
+        $tmpRecords[$i] = $record;
+
+        if(($cntRecords % $size) != 0
+            && $cntRecords < $recordsNum){
+                continue;
+        }
+        $_tmpRecords[] = $tmpRecords;
+    }
+    return $_tmpRecords;
+}
+
+
+function splitInsert($records, $pkColumn = 'oid', $chunkNum = 500){
     $recordsNum = count($records);
 
     $rows = array();
