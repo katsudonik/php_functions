@@ -7,6 +7,10 @@
  */
 
 function array_chunk($array, $size){
+    if($size < 1){
+        return false;
+    }
+
     $recordsNum = count($array);
 
     $tmpRecords = array();
