@@ -1,4 +1,6 @@
 <?php
+
+class Validation {
     /**
      * 必須チェック（API共通）
      * @param array   $data  チェック対象データ配列
@@ -144,3 +146,4 @@
         }
         return true;
     }
+}
